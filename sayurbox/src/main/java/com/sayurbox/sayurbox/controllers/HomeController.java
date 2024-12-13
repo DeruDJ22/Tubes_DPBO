@@ -18,6 +18,10 @@ public class HomeController {
     }@GetMapping("/registration")
     public String registration() {
         return "registration";
+    }@GetMapping("/cart")
+    public String cart() {
+        return "cart";
     }
+    
     
 }
