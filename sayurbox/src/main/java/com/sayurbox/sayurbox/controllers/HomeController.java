@@ -12,13 +12,8 @@ public class HomeController {
     @GetMapping("/index")
     public String index() {
         return "index";
-    }@GetMapping("/login")
-    public String login() {
-        return "login";
-    }@GetMapping("/registration")
-    public String registration() {
-        return "registration";
-    }@GetMapping("/cart")
+    }
+    @GetMapping("/cart")
     public String cart() {
         return "cart";
     }
