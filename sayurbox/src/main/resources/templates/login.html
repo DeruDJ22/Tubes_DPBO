@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>Login - SayurBox</title>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-box">
+      <h1 class="text-success">Login</h1>
+      <form action="/login" method="POST">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn btn-success">Login</button>
+      </form>
+      <p class="auth-footer">
+        Don't have an account? <a href="registration" class="text-success">Sign up here</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
