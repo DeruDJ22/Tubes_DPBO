@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>Payment - SayurBox</title>
+</head>
+<body>
+  <div class="payment-container">
+    <div class="payment-box">
+      <h1 class="text-success">Complete Your Payment</h1>
+      <form id="paymentForm" onsubmit="processPayment(event)">
+        <div class="form-group">
+          <label for="orderId">Order ID</label>
+          <input type="text" id="orderId" name="orderId" placeholder="Enter your order ID" required>
+        </div>
+        <div class="form-group">
+          <label for="paymentMethod">Payment Method</label>
+          <select id="paymentMethod" name="paymentMethod" required>
+            <option value="credit_card">Credit Card</option>
+            <option value="bank_transfer">Bank Transfer</option>
+            <option value="ewallet">E-Wallet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="amount">Amount</label>
+          <input type="number" id="amount" name="amount" placeholder="Enter payment amount" required>
+        </div>
+        <button type="submit" class="btn btn-success">Pay Now</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+
+    async function processPayment(event) {
+      event.preventDefault();
+
+      const orderId = document.getElementById("orderId").value;
+      const paymentMethod = document.getElementById("paymentMethod").value;
+      const amount = document.getElementById("amount").value;
+
+      const paymentData = {
+        orderId,
+        paymentMethod,
+        amount,
+        paymentDate: new Date().toISOString()
+      };
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(paymentData)
+        });
+
+        if (response.ok) {
+          alert("Payment Successful!");
+          document.getElementById("paymentForm").reset();
+        } else {
+          alert("Payment Failed! Please try again.");
+        }
+      } catch (error) {
+        console.error("Error processing payment:", error);
+        alert("An error occurred while processing payment.");
+      }
+    }
+  </script>
+</body>
+</html>
