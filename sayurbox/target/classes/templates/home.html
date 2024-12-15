@@ -84,7 +84,7 @@
           <div id="card-container" class="row">
             <div class="col-md-4 mb-4" th:each="product : ${product}">
               <div class="card shadow-sm">
-                <img class="card-img-top" th:src="${product.gambar}" alt="'Image of ' + ${product.name}" />
+                <img class="card-img-top" th:src="${product.gambar}" alt="'Image of ' + ${product.name}" style="height: 400px; " />
                 <div class="card-body">
                   <h5
                     class="card-title text-success"
