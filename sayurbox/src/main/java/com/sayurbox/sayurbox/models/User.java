@@ -20,7 +20,6 @@ public class User {
     @Column(nullable = false)
     private String address;
 
-    // Constructor
     public User(){}
 
     public User(String userId, String username, String phoneNumber, String email, String password, String address) {
@@ -32,7 +31,6 @@ public class User {
         this.address = address;
     }
 
-    // Getters and Setters
     public String getUserId() {
         return userId;
     }

@@ -11,7 +11,6 @@ import com.sayurbox.sayurbox.models.User;
 import com.sayurbox.sayurbox.services.UserService;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -35,7 +34,12 @@ public class AuthController {
         if (user != null){
             return "redirect:/";
         } else {
-            model.addAttribute("error", "data yang dimasukan salah");
+            if(!userService.findEmail(email)){
+                model.addAttribute("errorEmail", "Email yang dimasukan salah");
+            } else if(!userService.findPassword(password)){
+                model.addAttribute("errorPass", "Password yang dimasukan salah");
+            }
+            // model.addAttribute("error", "email atau password salah");
             return "login";
         }
         

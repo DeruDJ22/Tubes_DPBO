@@ -15,4 +15,12 @@ public class UserService {
     public User authenticate(String email, String password) {
         return userRepo.findByEmailAndPassword(email, password);
     }
+
+    public boolean findEmail(String email){
+        return userRepo.existsByEmail(email);
+    }
+
+    public boolean findPassword(String password){
+        return userRepo.existsByPassword(password);
+    }
 }
