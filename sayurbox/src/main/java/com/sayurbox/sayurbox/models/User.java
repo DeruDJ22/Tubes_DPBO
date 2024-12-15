@@ -2,27 +2,29 @@ package com.sayurbox.sayurbox.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class User {
 
     @Id
-    private String userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private long userId;
     @Column(nullable = false)
     private String username;
-    @Column(nullable = false)
     private String phoneNumber;
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
     private String address;
 
     public User(){}
 
-    public User(String userId, String username, String phoneNumber, String email, String password, String address) {
+    public User(long userId, String username, String phoneNumber, String email, String password, String address) {
         this.userId = userId;
         this.username = username;
         this.phoneNumber = phoneNumber;
@@ -31,11 +33,11 @@ public class User {
         this.address = address;
     }
 
-    public String getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

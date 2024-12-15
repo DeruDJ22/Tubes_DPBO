@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 // import model yang nantinya digunakan untuk menyambungkan dengan ui
 import com.sayurbox.sayurbox.models.User;
@@ -48,5 +49,18 @@ public class AuthController {
     @GetMapping("/registration")
     public String registration() {
         return "registration";
+    }
+
+    @PostMapping("/registration")
+    public ModelAndView addRegistration(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("password") String password, Model model) {
+        User user = new User();
+        user.setUsername(name);
+        user.setEmail(email);
+        user.setPassword(password);
+        userService.addUsers(user);
+
+        ModelAndView mav = new ModelAndView("home"); // Nama file HTML sukses
+        mav.addObject("user", user);
+        return mav;
     }
 }

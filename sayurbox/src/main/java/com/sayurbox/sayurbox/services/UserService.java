@@ -23,4 +23,8 @@ public class UserService {
     public boolean findPassword(String password){
         return userRepo.existsByPassword(password);
     }
+
+    public User addUsers(User user){
+        return userRepo.save(user);
+    }
 }
