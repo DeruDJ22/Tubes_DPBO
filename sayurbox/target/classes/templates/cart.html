@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <title>SayurBox</title>
+    <style>
+      body {
+        padding-top: 70px;
+      }
+      .navbar {
+        height: 70px;
+      }
+      .cart-item {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+      .cart-total {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-success text-white fixed-top"
+    >
+      <div class="container">
+        <a class="navbar-brand text-white font-weight-bold" href="#"
+          >SayurBox</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-center"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link text-white" href="index"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#shop">Shop</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#faq">FAQ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+        <div class="d-flex align-items-center">
+          <a href="cart" class="nav-link text-white mr-3">Keranjang</a>
+        </div>
+        <div class="d-flex align-items-center">
+          <a class="nav-link text-white mr-3" href="registration">Sign up</a>
+          <a type="button" class="btn btn-light text-success" href="login"
+            >Login</a
+          >
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <h1 class="text-center my-4">Shopping Cart</h1>
+      <div class="row justify-content-around">
+        <!-- Bagian Barang -->
+        <div class="col-7" id="cart-items">
+          <div class="cart-item" data-item-id="1">
+            <div class="row">
+              <div class="col">
+                <h5>Barang 1</h5>
+                <p>Keterangan singkat barang 1.</p>
+                <p class="text-success">Rp20.000</p>
+                <div class="d-flex">
+                  <button
+                    class="btn btn-danger btn-sm"
+                    onclick="decreaseQuantity(1)"
+                  >
+                    -
+                  </button>
+                  <span class="ml-2" id="quantity-1">1</span>
+                  <button
+                    class="btn btn-primary btn-sm ml-2"
+                    onclick="increaseQuantity(1)"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <div class="col">
+                <img src="wortel.jpg" class="card-img-top" />
+              </div>
+            </div>
+          </div>
+          <div class="cart-item" data-item-id="2">
+            <div class="row">
+              <div class="col">
+                <h5>Barang 2</h5>
+                <p>Keterangan singkat barang 2.</p>
+                <p class="text-success">Rp20.000</p>
+                <div class="d-flex">
+                  <button
+                    class="btn btn-danger btn-sm"
+                    onclick="decreaseQuantity(2)"
+                  >
+                    -
+                  </button>
+                  <span class="ml-2" id="quantity-2">1</span>
+                  <button
+                    class="btn btn-primary btn-sm ml-2"
+                    onclick="increaseQuantity(2)"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <div class="col">
+                <img src="wortel.jpg" class="card-img-top" />
+              </div>
+            </div>
+          </div>
+          <div class="cart-item" data-item-id="3">
+            <div class="row">
+              <div class="col">
+                <h5>Barang 3</h5>
+                <p>Keterangan singkat barang 3.</p>
+                <p class="text-success">Rp20.000</p>
+                <div class="d-flex">
+                  <button
+                    class="btn btn-danger btn-sm"
+                    onclick="decreaseQuantity(3)"
+                  >
+                    -
+                  </button>
+                  <span class="ml-2" id="quantity-3">1</span>
+                  <button
+                    class="btn btn-primary btn-sm ml-2"
+                    onclick="increaseQuantity(3)"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <div class="col">
+                <img src="wortel.jpg" class="card-img-top" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Bagian Harga -->
+        <div class="col-3">
+          <div class="cart-total">
+            <h4>Total</h4>
+            <p>Barang: <span id="total-items">3</span></p>
+            <p>
+              Harga Total:
+              <span class="text-success" id="total-price">Rp60.000</span>
+            </p>
+            <a class="btn btn-success btn-block" href="payment">Checkout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let totalItems = 3;
+      let totalPrice = 60000;
+      const itemPrices = [20000, 20000, 20000];
+
+      function updateTotal() {
+        document.getElementById("total-items").textContent = totalItems;
+        document.getElementById(
+          "total-price"
+        ).textContent = `Rp${totalPrice.toLocaleString()}`;
+      }
+
+      function increaseQuantity(itemId) {
+        const quantityElement = document.getElementById(`quantity-${itemId}`);
+        let quantity = parseInt(quantityElement.textContent);
+        quantity++;
+        quantityElement.textContent = quantity;
+
+        totalItems++;
+        totalPrice += itemPrices[itemId - 1];
+        updateTotal();
+      }
+
+      function decreaseQuantity(itemId) {
+        const quantityElement = document.getElementById(`quantity-${itemId}`);
+        let quantity = parseInt(quantityElement.textContent);
+        if (quantity > 1) {
+          quantity--;
+          quantityElement.textContent = quantity;
+
+          totalItems--;
+          totalPrice -= itemPrices[itemId - 1];
+          updateTotal();
+        }
+      }
+    </script>
+  </body>
+</html>

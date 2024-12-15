@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 200px;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            margin-top: 1000px;
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .delivery-info {
+            margin-bottom: 20px;
+        }
+
+        .delivery-info p {
+            margin: 8px 0;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e7f4e4;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+            border-radius: 4px;
+        }
+
+        .status p {
+            margin: 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Delivery Details</h1>
+
+        <div class="delivery-info">
+            <p><strong>Order ID:</strong> <span id="orderId">101</span></p>
+            <p><strong>Delivery Date:</strong> <span id="deliveryDate">2024-12-22</span></p>
+            <p><strong>Status:</strong> <span id="status">Scheduled</span></p>
+        </div>
+
+        <div class="status" id="statusMessage">
+            <p>Status is up-to-date.</p>
+        </div>
+    </div>
+
+    <script>
+        // Simulate data update for user viewing purpose
+        function updateDeliveryDetails(orderId, deliveryDate, status) {
+            document.getElementById('orderId').textContent = orderId;
+            document.getElementById('deliveryDate').textContent = deliveryDate;
+            document.getElementById('status').textContent = status;
+
+            document.getElementById('statusMessage').innerHTML = `<p>Status updated to: ${status}</p>`;
+        }
+
+        // Example of updating details dynamically
+        setTimeout(() => {
+            updateDeliveryDetails('102', '2024-12-25', 'In Transit');
+        }, 5000);
+    </script>
+
+</body>
+</html>
