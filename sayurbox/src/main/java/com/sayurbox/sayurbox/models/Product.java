@@ -20,12 +20,13 @@ public class Product {
     private int stock;
 
     public Product() {}
-    public Product(int productId, String name, String description, float price, int stock) {
+    public Product(int productId, String name, String description, float price, int stock, String gambar) {
         this.productId = productId;
         this.name = name;
         this.description = description;
         this.price = price;
         this.stock = stock;
+        this.gambar = gambar;
     }
 
     public int getProductId() {

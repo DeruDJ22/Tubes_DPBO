@@ -14,6 +14,10 @@ public class ProductService {
     @Autowired
     private ProductRepo productRepo;
 
+    public ProductService(ProductRepo productRepo) {
+        this.productRepo = productRepo;
+    }
+
     public List<Product> getAllProducts() {
         return productRepo.findAll(); // Mengambil semua data dari tabel
     }
