@@ -79,25 +79,33 @@
     </nav>
 
     <section id="product" class="pt-5 mt-5">
-        <div class="container">
-                <div class="row justify-content-center">
-                    <div id="card-container" class="row">
-                      <div class="col-md-4 mb-4" th:each="product : ${products}">
-                        <div class="card shadow-sm">
-                            <img class="card-img-top" th:src="${products.gambar}" alt="" />
-                            <div class="card-body">
-                                <h5 class="card-title text-success" th:text="${products.name}"></h5>
-                                <p class="card-text text-muted" th:text="${products.description}"></p>
-                                <h3 class="card-text text-success mb-3" th:text="${products.price}"></h3>
-                                <a href="#" class="btn btn-success btn-block">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                
+      <div class="container">
+        <div class="row justify-content-center">
+          <div id="card-container" class="row">
+            <div class="col-md-4 mb-4" th:each="product : ${product}">
+              <div class="card shadow-sm">
+                <img class="card-img-top" th:src="${product.gambar}" alt="'Image of ' + ${product.name}" />
+                <div class="card-body">
+                  <h5
+                    class="card-title text-success"
+                    th:text="${product.name}"
+                  ></h5>
+                  <p
+                    class="card-text text-muted"
+                    th:text="${product.description}"
+                  ></p>
+                  <h3
+                    class="card-text text-success mb-3"
+                    th:text="'Rp' + ${product.price}"
+                  ></h3>
+                  <a href="#" class="btn btn-success btn-block">Buy Now</a>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -172,7 +180,6 @@
           }
         });
       });
-      
     </script>
   </body>
 </html>
