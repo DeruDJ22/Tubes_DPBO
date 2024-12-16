@@ -66,19 +66,6 @@
             <p>Status is up-to-date.</p>
         </div>
     </div>
-    <div class="container">
-        <h1>Courier Details</h1>
-
-        <div class="courier-info">
-            <p><strong>Courier Name:</strong> <span id="courierName">John Doe</span></p>
-            <p><strong>Courier ID:</strong> <span id="courierId">101</span></p>
-            <p><strong>Phone Number:</strong> <span id="phoneNumber">123456789</span></p>
-        </div>
-
-        <div class="status" id="statusMessage1">
-            <p>Status is up-to-date.</p>
-        </div>
-    </div>
 
     <script>
         // Simulate data update for user viewing purpose
@@ -93,19 +80,6 @@
         // Example of updating details dynamically
         setTimeout(() => {
             updateDeliveryDetails('102', '2024-12-25', 'In Transit');
-        }, 5000);
-        // Simulate data update for user viewing purpose
-        function updateCourierDetails(name, id, phone, status) {
-            document.getElementById('courierName').textContent = name;
-            document.getElementById('courierId').textContent = id;
-            document.getElementById('phoneNumber').textContent = phone;
-
-            document.getElementById('statusMessage1').innerHTML = `<p>Status updated to: ${status}</p>`;
-        }
-
-        // Example of updating details dynamically
-        setTimeout(() => {
-            updateCourierDetails('Jane Smith', '102', '987654321', 'Assigned to Delivery');
         }, 5000);
     </script>
 
