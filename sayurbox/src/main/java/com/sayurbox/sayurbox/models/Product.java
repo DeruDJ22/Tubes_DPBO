@@ -5,27 +5,37 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.math.BigDecimal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Entity
 public class Product {
+
+    private static final Logger logger = LoggerFactory.getLogger(Product.class);
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     private int productId;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String description;
+
     @Column(nullable = false)
     private String gambar;
+
     @Column(nullable = false)
-    private float price;
+    private BigDecimal price;
+
     @Column(nullable = false)
     private int stock;
 
     public Product() {}
-    public Product(int productId, String name, String description, float price, int stock, String gambar) {
-        this.productId = productId;
+
+    public Product(String name, String description, BigDecimal price, int stock, String gambar) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -33,6 +43,7 @@ public class Product {
         this.gambar = gambar;
     }
 
+    // Getters and Setters
     public int getProductId() {
         return productId;
     }
@@ -65,11 +76,11 @@ public class Product {
         this.gambar = gambar;
     }
 
-    public float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -81,17 +92,15 @@ public class Product {
         this.stock = stock;
     }
 
-    // Additional Methods
+    // Method to update stock and log the change
     public void updateStock(int newStock) {
         this.stock = newStock;
-        System.out.println("Stock updated to: " + newStock);
+        logger.info("Stock updated to: " + newStock);
     }
 
-    public void updatePrice(float newPrice) {
+    // Method to update price and log the change
+    public void updatePrice(BigDecimal newPrice) {
         this.price = newPrice;
-        System.out.println("Price updated to: " + newPrice);
+        logger.info("Price updated to: " + newPrice);
     }
-
-    
 }
-
