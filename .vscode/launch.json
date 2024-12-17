@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SayurboxApplication<sayurbox>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.sayurbox.sayurbox.SayurboxApplication",
+            "projectName": "sayurbox",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

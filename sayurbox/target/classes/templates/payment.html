@@ -1,72 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <title>Payment - SayurBox</title>
-</head>
-<body>
-  <div class="payment-container">
-    <div class="payment-box">
-      <h1 class="text-success">Complete Your Payment</h1>
-      <form id="paymentForm" onsubmit="processPayment(event)">
-        <div class="form-group">
-          <label for="orderId">Order ID</label>
-          <input type="text" id="orderId" name="orderId" placeholder="Enter your order ID" required>
-        </div>
-        <div class="form-group">
-          <label for="paymentMethod">Payment Method</label>
-          <select id="paymentMethod" name="paymentMethod" required>
-            <option value="credit_card">Credit Card</option>
-            <option value="bank_transfer">Bank Transfer</option>
-            <option value="ewallet">E-Wallet</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="amount">Amount</label>
-          <input type="number" id="amount" name="amount" placeholder="Enter payment amount" required>
-        </div>
-        <button type="submit" class="btn btn-success">Pay Now</button>
-      </form>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pembayaran</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-success text-center">Halaman Pembayaran</h1>
+      <div class="card shadow-sm p-4">
+        <h4>Ringkasan Pesanan</h4>
+        <p>
+          <strong>Order ID:</strong>
+          <span th:text="${orderId}"></span>
+        </p>
+        <p>
+          <strong>Jumlah Barang:</strong>
+          <span th:text="${totalItems}"></span>
+        </p>
+        <p>
+          <strong>Harga Total:</strong>
+          <span th:text="'Rp ' + ${totalPrice}"></span>
+        </p>
+
+        <!-- Form untuk melanjutkan ke halaman pengiriman -->
+        <form action="/delivery" method="post">
+          <input type="hidden" name="orderId" th:value="${orderId}" />
+          <button type="submit" class="btn btn-success btn-block">
+            Lanjut ke Pengiriman
+          </button>
+        </form>
+      </div>
     </div>
-  </div>
-
-  <script>
-
-    async function processPayment(event) {
-      event.preventDefault();
-
-      const orderId = document.getElementById("orderId").value;
-      const paymentMethod = document.getElementById("paymentMethod").value;
-      const amount = document.getElementById("amount").value;
-
-      const paymentData = {
-        orderId,
-        paymentMethod,
-        amount,
-        paymentDate: new Date().toISOString()
-      };
-
-      try {
-        const response = await fetch(apiUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(paymentData)
-        });
-
-        if (response.ok) {
-          alert("Payment Successful!");
-          document.getElementById("paymentForm").reset();
-        } else {
-          alert("Payment Failed! Please try again.");
-        }
-      } catch (error) {
-        console.error("Error processing payment:", error);
-        alert("An error occurred while processing payment.");
-      }
-    }
-  </script>
-</body>
+  </body>
 </html>
