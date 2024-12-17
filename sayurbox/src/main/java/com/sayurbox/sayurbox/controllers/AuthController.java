@@ -69,8 +69,7 @@ public class AuthController {
         user.setPassword(password);
         userService.addUsers(user);
 
-        // Redirect ke halaman home setelah registrasi berhasil
-        ModelAndView mav = new ModelAndView("redirect:/home");
+        ModelAndView mav = new ModelAndView("redirect:/home"); // Nama file HTML sukses
         mav.addObject("user", user);
         return mav;
     }
