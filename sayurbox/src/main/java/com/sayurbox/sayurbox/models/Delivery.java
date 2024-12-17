@@ -1,71 +1,40 @@
 package com.sayurbox.sayurbox.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Delivery {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long deliveryId;
+    private String statusPengiriman;
+    private Long kurirId;  // Referensi ke kurir
 
-    private int deliveryId;
-    private int orderId;
-    private String deliveryDate;
-    private String status;
-
-    public Delivery(int deliveryId, int orderId, String deliveryDate, String status) {
-        this.deliveryId = deliveryId;
-        this.orderId = orderId;
-        this.deliveryDate = deliveryDate;
-        this.status = status;
-    }
-    public int getDeliveryId() {
+    // Getter dan Setter
+    public Long getDeliveryId() {
         return deliveryId;
     }
 
-    public void setDeliveryId(int deliveryId) {
+    public void setDeliveryId(Long deliveryId) {
         this.deliveryId = deliveryId;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public String getStatusPengiriman() {
+        return statusPengiriman;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setStatusPengiriman(String statusPengiriman) {
+        this.statusPengiriman = statusPengiriman;
     }
 
-    public String getDeliveryDate() {
-        return deliveryDate;
+    public Long getKurirId() {
+        return kurirId;
     }
 
-    public void setDeliveryDate(String deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void scheduleDelivery(int orderId, String deliveryDate) {
-        this.orderId = orderId;
-        this.deliveryDate = deliveryDate;
-        this.status = "Scheduled";
-        System.out.println("Delivery scheduled successfully.");
-    }
-
-    public void updateDeliveryStatus(String newStatus) {
-        this.status = newStatus;
-        System.out.println("Delivery status updated to: " + newStatus);
-    }
-    public static void main(String[] args) {
-        
-        Delivery delivery = new Delivery(1, 101, "2024-12-20", "Pending");
-
-        delivery.scheduleDelivery(101, "2024-12-22");
-        System.out.println("Order ID: " + delivery.getOrderId());
-        System.out.println("Delivery Date: " + delivery.getDeliveryDate());
-        System.out.println("Status: " + delivery.getStatus());
-
-        delivery.updateDeliveryStatus("Delivered");
-        System.out.println("Updated Status: " + delivery.getStatus());
+    public void setKurirId(Long kurirId) {
+        this.kurirId = kurirId;
     }
 }

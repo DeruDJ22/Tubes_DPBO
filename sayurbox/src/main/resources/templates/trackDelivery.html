@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Track Delivery</title>
+</head>
+<body>
+    <h1>Track Delivery</h1>
+
+    <div th:if="${delivery != null}">
+        <p>Delivery ID: <span th:text="${delivery.deliveryId}"></span></p>
+        <p>Status Pengiriman: <span th:text="${delivery.statusPengiriman}"></span></p>
+        
+        <h2>Courier Information</h2>
+        <p>Nama Kurir: <span th:text="${courier.namaKurir}"></span></p>
+        <p>Nomor Kurir: <span th:text="${courier.nomorKurir}"></span></p>
+    </div>
+    <div th:if="${delivery == null}">
+        <p th:text="${message}"></p>
+    </div>
+
+</body>
+</html>
