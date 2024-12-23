@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delivery Details</title>
+    <title>Delivery Management</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 200px;
             background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
         }
 
         .container {
-            margin-top: 1000px;
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
             background: white;
             padding: 20px;
@@ -21,19 +21,61 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        h1 {
+        h1, h2 {
             text-align: center;
             color: #333;
         }
 
-        .delivery-info {
-            margin-bottom: 20px;
+        .section {
+            margin-bottom: 30px;
         }
 
-        .delivery-info p {
-            margin: 8px 0;
-            line-height: 1.5;
-            color: #555;
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: #f4f4f4;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
         }
 
         .status {
@@ -43,10 +85,6 @@
             color: #2e7d32;
             border: 1px solid #c8e6c9;
             border-radius: 4px;
-        }
-
-        .status p {
-            margin: 0;
             text-align: center;
         }
     </style>
@@ -54,33 +92,79 @@
 <body>
 
     <div class="container">
-        <h1>Delivery Details</h1>
+        <h1>Delivery Management</h1>
 
-        <div class="delivery-info">
-            <p><strong>Order ID:</strong> <span id="orderId">101</span></p>
-            <p><strong>Delivery Date:</strong> <span id="deliveryDate">2024-12-22</span></p>
-            <p><strong>Status:</strong> <span id="status">Scheduled</span></p>
+        <!-- Delivery List -->
+        <div class="section" id="deliveryListSection">
+            <h2>Delivery List</h2>
+            <ul id="deliveryList">
+                <li><a href="#" onclick="showDetails('101', '2024-12-22', 'Scheduled')">Delivery ID: 101</a></li>
+                <li><a href="#" onclick="showDetails('102', '2024-12-25', 'In Transit')">Delivery ID: 102</a></li>
+            </ul>
         </div>
 
-        <div class="status" id="statusMessage">
-            <p>Status is up-to-date.</p>
+        <!-- Delivery Details -->
+        <div class="section" id="deliveryDetailsSection">
+            <h2>Delivery Details</h2>
+            <div class="delivery-info">
+                <p><strong>Order ID:</strong> <span id="orderId">-</span></p>
+                <p><strong>Delivery Date:</strong> <span id="deliveryDate">-</span></p>
+                <p><strong>Status:</strong> <span id="status">-</span></p>
+            </div>
+            <div class="status" id="statusMessage">
+                <p>Select a delivery to view details.</p>
+            </div>
+        </div>
+
+        <!-- Add Delivery Form -->
+        <div class="section" id="addDeliverySection">
+            <h2>Add Delivery</h2>
+            <form onsubmit="addDelivery(event)">
+                <div>
+                    <label for="newOrderId">Order ID</label>
+                    <input type="text" id="newOrderId" placeholder="Enter Order ID" required>
+                </div>
+                <div>
+                    <label for="newDeliveryDate">Delivery Date</label>
+                    <input type="text" id="newDeliveryDate" placeholder="Enter Delivery Date" required>
+                </div>
+                <div>
+                    <label for="newStatus">Status</label>
+                    <input type="text" id="newStatus" placeholder="Enter Status" required>
+                </div>
+                <button type="submit">Add Delivery</button>
+            </form>
         </div>
     </div>
 
     <script>
-        // Simulate data update for user viewing purpose
-        function updateDeliveryDetails(orderId, deliveryDate, status) {
+        // Show details of a selected delivery
+        function showDetails(orderId, deliveryDate, status) {
             document.getElementById('orderId').textContent = orderId;
             document.getElementById('deliveryDate').textContent = deliveryDate;
             document.getElementById('status').textContent = status;
 
-            document.getElementById('statusMessage').innerHTML = `<p>Status updated to: ${status}</p>`;
+            document.getElementById('statusMessage').innerHTML = `<p>Details for Delivery ID: ${orderId} displayed.</p>`;
         }
 
-        // Example of updating details dynamically
-        setTimeout(() => {
-            updateDeliveryDetails('102', '2024-12-25', 'In Transit');
-        }, 5000);
+        // Add a new delivery to the list
+        function addDelivery(event) {
+            event.preventDefault();
+
+            const orderId = document.getElementById('newOrderId').value;
+            const deliveryDate = document.getElementById('newDeliveryDate').value;
+            const status = document.getElementById('newStatus').value;
+
+            const newDelivery = document.createElement('li');
+            newDelivery.innerHTML = `<a href="#" onclick="showDetails('${orderId}', '${deliveryDate}', '${status}')">Delivery ID: ${orderId}</a>`;
+            document.getElementById('deliveryList').appendChild(newDelivery);
+
+            document.getElementById('newOrderId').value = '';
+            document.getElementById('newDeliveryDate').value = '';
+            document.getElementById('newStatus').value = '';
+
+            document.getElementById('statusMessage').innerHTML = `<p>Delivery ID: ${orderId} added successfully.</p>`;
+        }
     </script>
 
 </body>

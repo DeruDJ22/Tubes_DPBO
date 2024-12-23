@@ -1,17 +1,12 @@
 package com.sayurbox.sayurbox.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.sayurbox.sayurbox.models.User;
 import com.sayurbox.sayurbox.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -27,31 +22,24 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model,
-            HttpSession session) {
-        // Autentikasi pengguna
+    public String login(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
         User user = userService.authenticate(email, password);
-
         if (user != null) {
-            // Jika autentikasi berhasil, simpan email dan username ke session
-            session.setAttribute("userEmail", user.getEmail());
-            session.setAttribute("username", user.getUsername()); // Menyimpan username ke session
-            return "redirect:/home"; // Redirect ke halaman home setelah login berhasil
+            session.setAttribute("user", user); // Simpan objek User
+            session.setAttribute("username", user.getUsername()); // Masih boleh jika Anda butuh username saja
+            session.setAttribute("role", user.getRole());
+            return "redirect:/home";
         } else {
-            // Jika email atau password salah, berikan pesan error
-            if (!userService.findEmail(email)) {
-                model.addAttribute("errorEmail", "Email yang dimasukan salah");
-            } else if (!userService.findPassword(password)) {
-                model.addAttribute("errorPass", "Password yang dimasukan salah");
-            }
-            return "login"; // Kembali ke halaman login dengan pesan error
+            System.out.println("Login gagal untuk email: " + email);
+            model.addAttribute("error", "Email atau password salah.");
+            return "login";
         }
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/index";
+        return "redirect:/login";
     }
 
     @GetMapping("/registration")
@@ -60,17 +48,16 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public ModelAndView addRegistration(@RequestParam("name") String name, @RequestParam("email") String email,
-            @RequestParam("password") String password, Model model) {
-        // Menambahkan pengguna baru
-        User user = new User();
-        user.setUsername(name);
-        user.setEmail(email);
-        user.setPassword(password);
-        userService.addUsers(user);
+    public String registerUser(@RequestParam String username, @RequestParam String email,
+            @RequestParam String password, Model model) {
+        if (userService.emailExists(email)) {
+            model.addAttribute("error", "Email sudah digunakan.");
+            return "registration";
+        }
 
-        ModelAndView mav = new ModelAndView("redirect:/home"); // Nama file HTML sukses
-        mav.addObject("user", user);
-        return mav;
+        User newUser = new User(username, email, password, "user"); // Default role "user"
+        userService.addUser(newUser);
+
+        return "redirect:/login";
     }
 }

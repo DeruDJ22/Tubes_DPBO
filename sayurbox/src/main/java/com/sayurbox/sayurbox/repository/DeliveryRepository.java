@@ -1,7 +1,7 @@
 package com.sayurbox.sayurbox.repository;
 
-import com.sayurbox.sayurbox.models.Delivery;
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.sayurbox.sayurbox.models.Delivery;
 
-public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
+public interface DeliveryRepository extends JpaRepository<Delivery, Integer> {
 }

@@ -1,10 +1,8 @@
 package com.sayurbox.sayurbox.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.List;
+
+import jakarta.persistence.*;
 
 @Entity
 public class User {
@@ -13,32 +11,34 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private long userId;
+
     @Column(nullable = false)
     private String username;
-    private String phoneNumber;
-    @Column(nullable = false)
+
+    @Column(nullable = false, unique = true)
     private String email;
+
     @Column(nullable = false)
     private String password;
-    private String address;
 
-    public User(){}
+    @Column
+    private String role = "user"; // Default role: "user"
 
-    public User(long userId, String username, String phoneNumber, String email, String password, String address) {
-        this.userId = userId;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Order> orders;
+
+    public User() {
+    }
+
+    public User(String username, String email, String password, String role) {
         this.username = username;
-        this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
-        this.address = address;
+        this.role = role;
     }
 
     public long getUserId() {
         return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
     }
 
     public String getUsername() {
@@ -47,14 +47,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -73,16 +65,11 @@ public class User {
         this.password = password;
     }
 
-    public String getAddress() {
-        return address;
+    public String getRole() {
+        return role;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    // Additional Methods
-    public void addCart() {
-        System.out.println("Cart added for user: " + username);
+    public void setRole(String role) {
+        this.role = role;
     }
 }

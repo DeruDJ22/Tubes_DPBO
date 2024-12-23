@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Admin Panel</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <!-- Navbar -->
+      <nav
+        class="navbar navbar-expand-lg navbar-light bg-success text-white fixed-top"
+      >
+        <div class="container">
+          <a class="navbar-brand text-white font-weight-bold" href="#"
+            >SayurBox</a
+          >
+          <div
+            class="collapse navbar-collapse justify-content-center"
+            id="navbarNav"
+          >
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link text-white" href="home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#shop">Shop</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#faq">FAQ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">Contact</a>
+              </li>
+            </ul>
+          </div>
+          <div class="d-flex align-items-center">
+            <a class="nav-link text-white" href="cart">Keranjang</a>
+            <a class="nav-link text-white" th:text="${session.username}"></a>
+            <!-- Tampilkan username -->
+            <a class="btn btn-light text-success" href="logout">Logout</a>
+          </div>
+        </div>
+      </nav>
+
+      <h1 class="text-center mb-4">Admin Panel</h1>
+
+      <!-- Tombol Menuju Halaman Courier -->
+      <div class="text-center my-4">
+        <a href="/couriers" class="btn btn-primary">Kelola Kurir</a>
+      </div>
+      <div class="text-center my-4">
+        <a href="/assign" class="btn btn-primary">Ambil Barang</a>
+      </div>
+      <!-- Form Menambahkan Admin -->
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Tambah Admin Baru</div>
+        <div class="card-body">
+          <form action="/admin/add-admin" method="post" th:object="${user}">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-success">Tambah Admin</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Form Menambahkan Barang -->
+      <div class="card mb-4">
+        <div class="card-header bg-success text-white">Tambah Barang Baru</div>
+        <div class="card-body">
+          <form
+            action="/admin/add-product"
+            method="post"
+            th:object="${product}"
+          >
+            <div class="mb-3">
+              <label for="name" class="form-label">Nama Barang</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Deskripsi</label>
+              <textarea
+                id="description"
+                name="description"
+                class="form-control"
+                required
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="price" class="form-label">Harga</label>
+              <input
+                type="number"
+                id="price"
+                name="price"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="image" class="form-label">Link Gambar</label>
+              <input
+                type="text"
+                id="gambar"
+                name="gambar"
+                class="form-control"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-success">Tambah Barang</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Informasi Sukses -->
+      <div th:if="${successAdmin}" class="alert alert-success" role="alert">
+        <span th:text="${successAdmin}"></span>
+      </div>
+      <div th:if="${successProduct}" class="alert alert-success" role="alert">
+        <span th:text="${successProduct}"></span>
+      </div>
+    </div>
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

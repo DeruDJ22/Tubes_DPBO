@@ -89,13 +89,10 @@
           </ul>
         </div>
         <div class="d-flex align-items-center">
-          <a href="cart" class="nav-link text-white mr-3">Keranjang</a>
-        </div>
-        <div class="d-flex align-items-center">
-          <a class="nav-link text-white mr-3" href="registration">Sign up</a>
-          <a type="button" class="btn btn-light text-success" href="login"
-            >Login</a
-          >
+          <a class="nav-link text-white" href="cart">Keranjang</a>
+          <a class="nav-link text-white" th:text="${session.username}"></a>
+          <!-- Tampilkan username -->
+          <a class="btn btn-light text-success" href="logout">Logout</a>
         </div>
       </div>
     </nav>
@@ -156,9 +153,11 @@
               >
             </p>
             <div class="text-center">
-              <a href="payment" class="btn btn-success btn-block mt-3"
-                >Checkout</a
-              >
+              <form action="/order/create" method="post">
+                <button type="submit" class="btn btn-success btn-block mt-3">
+                  Bayar
+                </button>
+              </form>
             </div>
           </div>
         </div>

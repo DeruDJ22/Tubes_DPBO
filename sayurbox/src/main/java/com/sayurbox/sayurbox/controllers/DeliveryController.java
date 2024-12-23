@@ -1,39 +1,37 @@
 package com.sayurbox.sayurbox.controllers;
 
 import com.sayurbox.sayurbox.models.Delivery;
-import com.sayurbox.sayurbox.models.Courier;
 import com.sayurbox.sayurbox.services.DeliveryService;
-import com.sayurbox.sayurbox.services.CourierService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/delivery") // Prefix untuk semua mapping terkait pengiriman
 public class DeliveryController {
 
     @Autowired
     private DeliveryService deliveryService;
 
-    @Autowired
-    private CourierService courierService;
+    // Endpoint untuk daftar pengiriman
+    @GetMapping
+    public String deliveryPage(Model model) {
+        model.addAttribute("deliveries", deliveryService.getAllDeliveries());
+        return "delivery"; // Mengacu ke file delivery.htm
+    }
 
-    @GetMapping("/trackDelivery")
-    public String trackDelivery(@RequestParam(value = "deliveryId", defaultValue = "0")  Long deliveryId, Model model) {
-        // Ambil data Delivery
-        Delivery delivery = deliveryService.getDeliveryById(deliveryId).orElse(null);
+    // Endpoint untuk menambahkan pengiriman baru
+    @PostMapping("/add")
+    public String addDelivery(@ModelAttribute Delivery delivery) {
+        deliveryService.saveDelivery(delivery);
+        return "redirect:/delivery"; // Redirect ke halaman daftar pengiriman
+    }
 
-        if (delivery != null) {
-            // Ambil data kurir berdasarkan kurirId di Delivery
-            Courier courier = courierService.getCourierById(delivery.getKurirId());
-            model.addAttribute("delivery", delivery);
-            model.addAttribute("courier", courier);
-        } else {
-            model.addAttribute("message", "Delivery tidak ditemukan");
-        }
-
-        return "trackDelivery"; // Halaman baru untuk menampilkan detail pengiriman
+    // Endpoint untuk detail pengiriman berdasarkan ID
+    @GetMapping("/{id}")
+    public String getDeliveryById(@PathVariable Integer id, Model model) {
+        model.addAttribute("delivery", deliveryService.getDeliveryById(id).orElse(null));
+        return "delivery-details"; // Pastikan ada file delivery-details.htm
     }
 }

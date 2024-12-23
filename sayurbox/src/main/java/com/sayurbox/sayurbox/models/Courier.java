@@ -1,37 +1,56 @@
 package com.sayurbox.sayurbox.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "courier") // Nama tabel di database
 public class Courier {
+
     @Id
-    private Long kurirId;
-    private String namaKurir;
-    private String nomorKurir;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT untuk ID
+    @Column(name = "kurir_id") // Nama kolom di database
+    private Long id;
 
-    // Getter dan Setter
-    public Long getKurirId() {
-        return kurirId;
+    @Column(name = "nama_kurir") // Nama kolom di database
+    private String name;
+
+    @Column(name = "nomor_kurir") // Nama kolom di database
+    private String phoneNumber;
+
+    public Courier() {}
+
+    public Courier(String name, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
     }
 
-    public void setKurirId(Long kurirId) {
-        this.kurirId = kurirId;
+    // Getters and Setters
+    public Long getId() {
+        return id;
     }
 
-    public String getNamaKurir() {
-        return namaKurir;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setNamaKurir(String namaKurir) {
-        this.namaKurir = namaKurir;
+    public String getName() {
+        return name;
     }
 
-    public String getNomorKurir() {
-        return nomorKurir;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setNomorKurir(String nomorKurir) {
-        this.nomorKurir = nomorKurir;
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

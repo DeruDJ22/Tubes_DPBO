@@ -1,10 +1,10 @@
 package com.sayurbox.sayurbox.services;
 
+import com.sayurbox.sayurbox.models.Product;
+import com.sayurbox.sayurbox.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sayurbox.sayurbox.models.Product;
-import com.sayurbox.sayurbox.repository.ProductRepo;
 
 import java.util.List;
 
@@ -16,6 +16,10 @@ public class ProductService {
 
     public ProductService(ProductRepo productRepo) {
         this.productRepo = productRepo;
+    }
+
+    public Product addProduct(Product product) {
+        return productRepo.save(product);
     }
 
     public List<Product> getAllProducts() {

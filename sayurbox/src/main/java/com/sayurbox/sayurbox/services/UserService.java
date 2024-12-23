@@ -1,30 +1,39 @@
 package com.sayurbox.sayurbox.services;
 
+import com.sayurbox.sayurbox.models.User;
+import com.sayurbox.sayurbox.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sayurbox.sayurbox.models.User;
-import com.sayurbox.sayurbox.repository.UserRepo;
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class UserService {
-    
+
     @Autowired
     private UserRepo userRepo;
 
+    // Autentikasi User
     public User authenticate(String email, String password) {
         return userRepo.findByEmailAndPassword(email, password);
     }
 
-    public boolean findEmail(String email){
+    // Mengecek apakah email sudah terdaftar
+    public boolean emailExists(String email) {
         return userRepo.existsByEmail(email);
     }
 
-    public boolean findPassword(String password){
-        return userRepo.existsByPassword(password);
+    // Menambah user baru
+    public User addUser(User user) {
+        return userRepo.save(user);
     }
 
-    public User addUsers(User user){
-        return userRepo.save(user);
+    // Menambahkan default admin jika belum ada
+    @PostConstruct
+    public void createDefaultAdmin() {
+        if (!userRepo.existsByEmail("admin@example.com")) {
+            User admin = new User("Admin", "admin@example.com", "admin123", "admin");
+            userRepo.save(admin);
+        }
     }
 }
