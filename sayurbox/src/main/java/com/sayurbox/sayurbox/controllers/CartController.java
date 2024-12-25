@@ -38,10 +38,10 @@ public class CartController {
     // Menambahkan item ke keranjang
     @PostMapping("/add-to-cart")
     public String addToCart(@RequestParam("id") int id,
-                            @RequestParam("name") String name,
-                            @RequestParam("price") double price,
-                            @RequestParam("image") String image,
-                            HttpSession session) {
+            @RequestParam("name") String name,
+            @RequestParam("price") double price,
+            @RequestParam("image") String image,
+            HttpSession session) {
 
         // Ambil keranjang dari session
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cart");

@@ -4,12 +4,12 @@ import com.sayurbox.sayurbox.models.Product;
 import com.sayurbox.sayurbox.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.sayurbox.sayurbox.repository.UserRepo;
 
 import java.util.List;
 
 @Service
-public class ProductService {
+public class ProductService{
 
     @Autowired
     private ProductRepo productRepo;

@@ -37,7 +37,7 @@ public class OrderController {
 
         if (currentUser == null) {
             model.addAttribute("error", "Anda harus login untuk melakukan pemesanan.");
-            return "login";
+            return "redirect:/login";
         }
 
         int totalItems = cartItems.stream().mapToInt(CartItem::getQuantity).sum();
