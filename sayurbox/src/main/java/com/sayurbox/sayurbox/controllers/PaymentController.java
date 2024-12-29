@@ -76,30 +76,25 @@ public class PaymentController {
             return "redirect:/login";
         }
 
-        // Retrieve the order
         Order order = orderService.getOrderById(orderId);
         if (order == null) {
             model.addAttribute("message", "Payment Failed! Order not found.");
             return "payment";
         }
 
-        // Validate input
         if (amount == null || amount <= 0) {
             model.addAttribute("message", "Invalid payment amount.");
             return "payment";
         }
 
-        // Create a new payment
         Payment payment = new Payment();
         payment.setAmount(String.valueOf(amount));
         payment.setStatus("Paid");
 
-        // Save payment and update order
         paymentRepository.save(payment);
         order.setPaymentStatus("SUDAH_BAYAR");
         orderService.updateOrder(order);
 
-        // Add success attributes
         model.addAttribute("success", true);
         model.addAttribute("payment", payment);
         model.addAttribute("order", order);

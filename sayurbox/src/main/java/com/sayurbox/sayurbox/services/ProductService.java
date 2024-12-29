@@ -1,5 +1,6 @@
 package com.sayurbox.sayurbox.services;
 
+import com.sayurbox.sayurbox.abstact.ProductAbstact;
 import com.sayurbox.sayurbox.models.Product;
 import com.sayurbox.sayurbox.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import com.sayurbox.sayurbox.repository.UserRepo;
 import java.util.List;
 
 @Service
-public class ProductService{
+public class ProductService extends ProductAbstact{
 
     @Autowired
     private ProductRepo productRepo;
