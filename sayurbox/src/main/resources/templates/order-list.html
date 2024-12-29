@@ -45,7 +45,7 @@
                         <!-- Tombol Pembayaran atau Status -->
                         <td>
                             <div th:if="${order.paymentStatus == 'BELUM_BAYAR'}">
-                                <a href="/bayar/{order.orderId}" class="btn btn-success">Bayar Sekarang</a>
+                                <a th:href="@{/payment/{orderId}(orderId=${order.orderId})}" class="btn btn-success" th:if="${order.paymentStatus == 'BELUM_BAYAR'}">Bayar Sekarang</a>
                             </div>
                             <div th:if="${order.paymentStatus == 'SUDAH_BAYAR'}">
                                 <span class="badge badge-primary">Pesanan Sedang Dikemas</span>

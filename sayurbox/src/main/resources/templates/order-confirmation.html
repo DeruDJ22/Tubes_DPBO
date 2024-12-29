@@ -25,7 +25,7 @@
         </div>
     </div>
     <a th:href="@{/home}" class="btn btn-success mt-3">Kembali ke Beranda</a>
-    <a th:href="@{/payment}" class="btn btn-primary mt-3">Lanjut ke Pembayaran</a>
+    <a th:href="@{/payment/{orderId}(orderId=${order.orderId})}" class="btn btn-primary mt-3">Lanjut ke Pembayaran</a>
 </div>
 </body>
 </html>

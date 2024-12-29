@@ -59,24 +59,33 @@
     <div class="container">
       <div class="payment-container">
         <h2 class="text-center text-primary mb-4">Complete Your Payment</h2>
-        <form id="paymentForm" action="/payment" method="POST">
+        <form id="paymentForm" th:action="@{/payment/{orderId}(orderId=${order.orderId})}" method="post">
+          <input type="hidden" name="_method" value="put" />
+          <!-- Input Order ID -->
           <input
             type="hidden"
             id="orderId"
             name="orderId"
             th:value="${order.orderId}"
           />
+        
+          <!-- Input Total Amount -->
           <div class="mb-3">
             <label for="amount" class="form-label">Total Amount</label>
             <input
-              type="number"
+              type="amount"
               id="amount"
               name="amount"
               class="form-control"
               th:value="${order.totalPrice}"
+              value="${order.totalPrice}"
               readonly
+              min="0"
+              required
             />
           </div>
+        
+          <!-- Select Payment Method -->
           <div class="mb-3">
             <label for="paymentMethod" class="form-label">Payment Method</label>
             <select
@@ -86,24 +95,26 @@
               required
             >
               <option value="" disabled selected>
-                Select a payment method
+                -- Pilih Metode Pembayaran --
               </option>
-              <option value="credit_card">Credit Card</option>
-              <option value="bank_transfer">Bank Transfer</option>
-              <option value="ewallet">E-Wallet</option>
+              <option value="credit_card">Kartu Kredit</option>
+              <option value="bank_transfer">Transfer Bank</option>
+              <option value="ewallet">Dompet Elektronik</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-success">Pay Now</button>
+        
+          <!-- Button Submit -->
+          <button type="submit" class="btn btn-success">Bayar Sekarang</button>
         </form>
-
+        
         <div
           id="paymentSuccess"
-          class="alert alert-success text-center"
-          role="alert"
+          th:if="${success == true}" 
         >
           <a th:href="@{/home}" class="btn btn-success mt-3"
             >Kembali ke Beranda</a
           >
+          <p></p>
           Payment Successful! Thank you for your purchase.
         </div>
         <div
@@ -115,25 +126,4 @@
         </div>
       </div>
     </div>
-
-    <script>
-      // Menangani pembayaran berhasil atau gagal (berdasarkan form action atau status yang diterima)
-      document
-        .getElementById("paymentForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          // Misalnya kita simulasi pembayaran berhasil
-          let isPaymentSuccess = true; // Gantilah ini dengan hasil sebenarnya
-
-          if (isPaymentSuccess) {
-            document.getElementById("paymentSuccess").style.display = "block";
-            document.getElementById("paymentError").style.display = "none";
-          } else {
-            document.getElementById("paymentError").style.display = "block";
-            document.getElementById("paymentSuccess").style.display = "none";
-          }
-        });
-    </script>
-  </body>
 </html>

@@ -62,8 +62,12 @@ public class OrderService {
         return orderRepository.findById(orderId).orElse(null);
     }
     
-    public void updateOrder(Order order) {
-        orderRepository.save(order);
+    public Order updateOrder(Order order) {
+        return orderRepository.save(order);
+    }
+
+    public Order getOrderById(String orderId) {
+        return orderRepository.findByOrderId(orderId).orElse(null);
     }
     
 }
