@@ -50,6 +50,7 @@ public class OrderService {
     public void assignCourierToOrder(Long orderId, Long courierId) {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalArgumentException("Order not found"));
         Courier courier = courierRepository.findById(courierId).orElseThrow(() -> new IllegalArgumentException("Courier not found"));
+        
         order.setCourier(courier);
         orderRepository.save(order);
     }

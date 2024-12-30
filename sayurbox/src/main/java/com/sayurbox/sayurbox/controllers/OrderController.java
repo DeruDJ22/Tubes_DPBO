@@ -68,12 +68,19 @@ public class OrderController {
 
     @GetMapping("/assign")
     public String assignCourierPage(Model model) {
-        List<Order> unassignedOrders = orderService.getUnassignedOrders();
-        List<Order> assignedOrders = orderService.getAssignedOrders();
-        List<Courier> couriers = courierService.getAllCouriers();
-        model.addAttribute("unassignedOrders", unassignedOrders);
-        model.addAttribute("assignedOrders", assignedOrders);
-        model.addAttribute("couriers", couriers);
+        try {
+            List<Order> unassignedOrders = orderService.getUnassignedOrders();
+            List<Order> assignedOrders = orderService.getAssignedOrders();
+            List<Courier> couriers = courierService.getAllCouriers();
+            model.addAttribute("unassignedOrders", unassignedOrders);
+            model.addAttribute("assignedOrders", assignedOrders);
+            model.addAttribute("couriers", couriers);
+        } catch (Exception e) {
+            // TODO: handle exception
+            model.addAttribute("message", "An error occurred while processing Assign: " + e.getMessage());
+            return "assign-courier";
+        }
+
         return "assign-courier";
     }
 

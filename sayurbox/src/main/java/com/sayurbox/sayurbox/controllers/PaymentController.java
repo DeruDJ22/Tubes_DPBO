@@ -76,28 +76,35 @@ public class PaymentController {
             return "redirect:/login";
         }
 
-        Order order = orderService.getOrderById(orderId);
-        if (order == null) {
-            model.addAttribute("message", "Payment Failed! Order not found.");
+        try {
+            Order order = orderService.getOrderById(orderId);
+            if (order == null) {
+                model.addAttribute("message", "Payment Failed! Order not found.");
+                return "payment";
+            }
+
+            if (amount == null || amount <= 0) {
+                model.addAttribute("message", "Invalid payment amount.");
+                return "payment";
+            }
+
+            Payment payment = new Payment();
+            payment.setAmount(String.valueOf(amount));
+            payment.setStatus("Paid");
+
+            paymentRepository.save(payment);
+            order.setPaymentStatus("SUDAH_BAYAR");
+            orderService.updateOrder(order);
+
+            model.addAttribute("success", true);
+            model.addAttribute("payment", payment);
+            model.addAttribute("order", order);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            model.addAttribute("message", "An error occurred while processing payment: " + e.getMessage());
             return "payment";
         }
-
-        if (amount == null || amount <= 0) {
-            model.addAttribute("message", "Invalid payment amount.");
-            return "payment";
-        }
-
-        Payment payment = new Payment();
-        payment.setAmount(String.valueOf(amount));
-        payment.setStatus("Paid");
-
-        paymentRepository.save(payment);
-        order.setPaymentStatus("SUDAH_BAYAR");
-        orderService.updateOrder(order);
-
-        model.addAttribute("success", true);
-        model.addAttribute("payment", payment);
-        model.addAttribute("order", order);
         return "payment";
     }
 
